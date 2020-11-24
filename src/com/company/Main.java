@@ -2,53 +2,49 @@ package com.company;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.LinkedList;
-import  java.util.Random;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        LinkedList<Integer> sayilar = new LinkedList<Integer>();
+	    // write your code here
+        Instant start;
+        Instant end;
 
-        Integer i;
-        for (i = 1; i <=100; i++) {
-            Random r=new Random(); //random sınıfı
-            int a=r.nextInt(1000000);
-            sayilar.add(a);
-        }
-        //sayilar.add(300,5656);
+        //Random array created and filled
+        AddElement ae = new AddElement();
+        ArrayList<Integer> array = ae.addElement();
 
-        Instant start = Instant.now();
-        long startTime = (long) Instant.now().getNano();
+        //Bubble sort created and run
+        BubbleSort b1 = new BubbleSort();
+        b1.bubbleSort(array);
 
-        BubbleSort ob = new BubbleSort();
-        ob.bubbleSort(sayilar);
-        Instant end = Instant.now();
-        long estimated = (long)Instant.now().getNano() - startTime;
+        //Binary search timer started
+        start = Instant.now();
+        //Binary search created and run
+        BinarySearch bs = new BinarySearch();
+
+        //Lambda function java8
+        //Stream opened to convert arraylist to the default array
+        int arr[] = array.stream().mapToInt(i -> i).toArray();
+        int n = arr.length;
+
+        //Intended value to be found
+        //Change x value to find intended value
+        int x = 999999;
+
+        //Binary search is started below
+        int result = bs.binarySearch(arr, 0, n - 1, x);
+
+        end = Instant.now();
         Duration timeElapsed = Duration.between(start, end);
-        System.out.println("Dizi Oluşturulma Süresi : milisaniye : " + timeElapsed.toMillis() + " milisaniye");
-        System.out.println("Dizi Oluşturulma Süresi : nanosaniye : " + estimated + " nanosaniye");
+        System.out.println("Binaryı Searcy Element bulma süresi : milisaniye : " + timeElapsed.toMillis() + " milisaniye");
 
 
-        for (Integer num : sayilar)
-        {
-            System.out.println("Sayı " + num);
-        }
-        /*
-        BinarySearch ob = new BinarySearch();
-
-        Integer n = sayilar.size();
-        int x = 5656;
-        int result = ob.binarySearch(sayilar, 0, n - 1, x);
         if (result == -1)
-            System.out.println("Element not present");
+            System.out.println("Element bulunamadı");
         else
-            System.out.println("Element found at index " + result);
-
-
-        System.out.println("Sayı ");*/
-
+            System.out.println("Element şu indeks'te bulundu : " + result);
 
 
     }

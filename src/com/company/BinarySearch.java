@@ -1,30 +1,29 @@
 package com.company;
 
-import java.util.LinkedList;
 
 public class BinarySearch {
-    int binarySearch(LinkedList<Integer> arr, Integer l, Integer r, Integer x)
-    {
-        if (r >= l) {
-            Integer mid = l + (r - l) / 2;
 
-            // If the element is present at the
-            // middle itself
-            if (arr.get(mid) == x)
-                return mid;
 
-            // If element is smaller than mid, then
-            // it can only be present in left subarray
-            if (arr.get(mid) > x)
-                return binarySearch(arr, l, mid - 1, x);
+    int binarySearch(int arr[], int l, int r, int x) {
 
-            // Else the element can only be present
-            // in right subarray
-            return binarySearch(arr, mid + 1, r, x);
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+
+            // Check if x is present at mid
+            if (arr[m] == x)
+                return m;
+
+            // If x greater, ignore left half
+            if (arr[m] < x)
+                l = m + 1;
+
+                // If x is smaller, ignore right half
+            else
+                r = m - 1;
         }
 
-        // We reach here when element is not present
-        // in array
+        // if we reach here, then element was
+        // not present
         return -1;
     }
 }
